@@ -1,0 +1,21 @@
+{
+  "name": "fmesagisto",
+  "description": "Message menager fidelize.",
+  "homepage": "https://www.fidelize.com.br",
+  "keywords": [
+    "comet",
+    "websocket",
+    "pubsub",
+    "bayeux",
+    "ajax",
+    "http"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "server": "server.js"
+  },
+  "dependencies": {
+    "faye": "^1.2.4",
+    "permessage-deflate": "^0.1.6"
+  }
+}
