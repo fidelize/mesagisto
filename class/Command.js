@@ -1,4 +1,4 @@
-var Notify = require("./Notify");
+Notify = require("./Notify");
 
 var Command =  {
     whiteList: [
@@ -6,13 +6,13 @@ var Command =  {
         'Notify.getAll',
     ],
     process: function (command) {
-        var resposnse = null;
+        var response = null;
         if (this.whiteList.indexOf(command) == -1) {
             return null;
         }
 
-        eval("resposnse = " + command);
-        return resposnse;
+        eval("response = " + command + "();");
+        return response;
     },
 }
 

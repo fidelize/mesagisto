@@ -1,6 +1,6 @@
 var Notify =  {
     getCount: function () {
-        return 10;
+        return 1;
     }
 }
 
