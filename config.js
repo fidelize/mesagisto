@@ -1,5 +1,6 @@
+var MESAGISTO_HOST = process.env.MESAGISTO_HOST;
 const config = {
-    endpoint: "http://localhost:8000/bayeux",
+    endpoint: "http://" + MESAGISTO_HOST + "/bayeux",
     publicDir: __dirname + "/public/",
     baseDir: __dirname + "/"
 };

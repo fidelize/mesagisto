@@ -5,14 +5,21 @@ var Command =  {
         'Notify.getCount',
         'Notify.getAll',
     ],
-    process: function (command) {
-        var response = null;
-        if (this.whiteList.indexOf(command) == -1) {
-            return null;
-        }
+    process: function (command,  message, bayeux) {
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            var response = null;
+            if (self.whiteList.indexOf(command) == -1) {
+                return null;
+            }
 
-        eval("response = " + command + "();");
-        return response;
+            eval("response = " + command + "(message, bayeux);");
+            response.then(function (value) {
+                resolve(value);
+            });
+        })
+
+
     },
 }
 

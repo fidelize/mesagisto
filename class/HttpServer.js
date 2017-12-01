@@ -5,15 +5,11 @@ const mime = require("mime");
 var qs = require('querystring');
 
 class HttpServer {
-    constructor() {
+    constructor(manager) {
         this.body = null;
         this.contentType = null;
         this.response = null;
-        this.bayeux = null;
-    }
-
-    setBayeux(bayeux) {
-        this.bayeux = bayeux;
+        this.messageManager = manager;
     }
 
     errorResponse(message) {
@@ -67,10 +63,11 @@ class HttpServer {
             return false;
         }
 
-        this.bayeux.getClient().publish(message.channel, {
+        this.messageManager.publish(message.channel, {
             type: message.type,
             content: message.content
         });
+
         this.successResponse('Message sent');
     }
 
@@ -113,6 +110,7 @@ class HttpServer {
         return function(request, response) {
             var body = '';
             var path = request.url === "/" ? "/index.html" : request.url;
+            console.log(path);
             self.contentType = request.headers['content-type'];
             self.response = response;
 

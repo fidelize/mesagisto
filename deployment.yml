@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mesagisto-dep
+  labels:
+    #Project ID
+    app: brimes-151914
+spec:
+  #Run two instances of our application
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: brimes-151914
+    spec:
+      #Container details
+      containers:
+        - name: node-app
+          image: gcr.io/brimes-151914/node-app:0.0.1
+          imagePullPolicy: Always
+          #Ports to expose
+          ports:
+          - containerPort: 8000
