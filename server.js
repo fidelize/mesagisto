@@ -8,9 +8,11 @@ var http = require("http"),
     deflate = require("permessage-deflate"),
     faye = require("faye");
 
+const config = require("./config");
+
 var bayeux = new faye.NodeAdapter({ mount: "/bayeux", timeout: 20 }),
-    port = process.argv[2] || "8000",
-    secure = process.argv[3] === "tls",
+    port = config.port,
+    secure = config.secure,
     key = null, //fs.readFileSync(SHARED_DIR + '/server.key'),
     cert = null; //fs.readFileSync(SHARED_DIR + '/server.crt');
 
@@ -47,7 +49,6 @@ bayeux.getClient().subscribe("/commands", function(message) {
 channelControl.bayeux = bayeux;
 
 bayeux.on("subscribe", function(clientId, channel) {
-    console.log(channel);
     channelControl.add(clientId, channel);
     channelControl.onSubscibeChannel(channel);
 });

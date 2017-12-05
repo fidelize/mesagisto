@@ -5,7 +5,8 @@
 Before start mesagisto server, configure the global host.
 
 '''
-export MESAGISTO_HOST='localhost:8000';
+export MESAGISTO_HOST='localhost';
+export MESAGISTO_PORT='80';
 '''
 
 
