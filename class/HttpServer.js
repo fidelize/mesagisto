@@ -5,11 +5,12 @@ const mime = require("mime");
 var qs = require('querystring');
 
 class HttpServer {
-    constructor(manager) {
+    constructor(manager, channelControl) {
         this.body = null;
         this.contentType = null;
         this.response = null;
         this.messageManager = manager;
+        this.channelControl = channelControl;
     }
 
     errorResponse(message) {
@@ -67,6 +68,11 @@ class HttpServer {
             type: message.type,
             content: message.content
         });
+        
+        if (typeof this.channelControl.cacheTotalNotify[message.channel] == 'undefined') {
+            this.channelControl.cacheTotalNotify[message.channel] = 0;
+        }
+        this.channelControl.cacheTotalNotify[message.channel]++
 
         this.successResponse('Message sent');
     }
@@ -110,7 +116,6 @@ class HttpServer {
         return function(request, response) {
             var body = '';
             var path = request.url === "/" ? "/index.html" : request.url;
-            console.log(path);
             self.contentType = request.headers['content-type'];
             self.response = response;
 

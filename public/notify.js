@@ -40,10 +40,6 @@ Notify = {
             self._bayeux.subscribe(self._fullChannel, function (message) {
                 self.onMessage(message)
             });
-            self._bayeux.publish("/commands", {
-                command: "Notify.getCount",
-                channel: self._fullChannel
-            });
         }, 100);
         this.hideElements();
     },
@@ -109,10 +105,10 @@ Notify = {
         this.showCount(this._totalMessages);
 
         if (!("Notification" in window)) {
-                return false;
+            return false;
         } else if (Notification.permission !== "granted") {
-                Notification.requestPermission();
-                return true;
+            Notification.requestPermission();
+            return true;
         }
         new Notification(message.content);
         return true;
@@ -136,7 +132,7 @@ Notify = {
         var htmlNotices = "";
         this.showBoxElements();
         for (var x = 0; x < message.content.length; x++) {
-            messageContent = message.content[x];
+            messageContent = message.content[x].content;
             messageContent = messageContent.replace(new RegExp("\n",'g'), "<br/>");
             htmlNotices += '<div class="notice-item">'
             + '<span class="notice-message">' + messageContent + '</span>'

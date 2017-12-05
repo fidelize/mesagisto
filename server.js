@@ -20,7 +20,7 @@ bayeux.addWebsocketExtension(deflate);
 var storage = new Storage();
 var channelControl = new Channel();
 var messageManager = new MessageManager(bayeux, channelControl);
-var httpServer = new HttpServer(messageManager);
+var httpServer = new HttpServer(messageManager, channelControl);
 
 var handleRequest = httpServer.handleRequest();
 
@@ -44,13 +44,18 @@ bayeux.getClient().subscribe("/commands", function(message) {
         console.error(err)
     }
 });
+channelControl.bayeux = bayeux;
 
 bayeux.on("subscribe", function(clientId, channel) {
+    console.log(channel);
     channelControl.add(clientId, channel);
+    channelControl.onSubscibeChannel(channel);
 });
 
 bayeux.on("unsubscribe", function(clientId, channel) {
     channelControl.remove(clientId);
+    channelControl.onUnsubscibeChannel(channel);
+
 });
 
 bayeux.on("disconnect", function(clientId) {

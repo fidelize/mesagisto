@@ -37,11 +37,14 @@ class Storage {
                 let messages = [];
                 for (var x = 0; x < files.length; x++) {
                     let message = JSON.parse(fs.readFileSync(files[x], "utf8"));
-                    if (message.expire >= Date.now()) {
+                    if (message.expire < Date.now()) {
                         continue;
                     };
-                    messages.push(message.content);
+                    messages.push({date: message.date, content: message.content});
                 }
+                messages.sort(function (valor1, valor2) {
+                    return (valor1.date > valor2.date) ? -1 : 1;
+                })
                 resolve(messages);
             })
         });
