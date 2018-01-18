@@ -7,6 +7,7 @@ var http = require("http"),
     Storage = require("./class/Storage"),
     deflate = require("permessage-deflate"),
     faye = require("faye");
+const fs = require("fs");
 
 const config = require("./config");
 
