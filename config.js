@@ -4,7 +4,7 @@ var MESAGISTO_SECURE = process.env.MESAGISTO_SECURE;
 var MESAGISTO_CERT_PATH = process.env.MESAGISTO_CERT_PATH;
 
 const config = {
-    endpoint: "http://" + MESAGISTO_HOST + "/bayeux",
+    endpoint: MESAGISTO_HOST + "/bayeux",
     publicDir: __dirname + "/public/",
     baseDir: __dirname + "/",
     port: MESAGISTO_PORT,
