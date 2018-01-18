@@ -13,8 +13,8 @@ const config = require("./config");
 var bayeux = new faye.NodeAdapter({ mount: "/bayeux", timeout: 20 }),
     port = config.port,
     secure = config.secure,
-    key = null, //fs.readFileSync(SHARED_DIR + '/server.key'),
-    cert = null; //fs.readFileSync(SHARED_DIR + '/server.crt');
+    key = fs.readFileSync(config.certPath + '/tls.key'),
+    cert = fs.readFileSync(config.certPath + '/tls.crt');
 
 
 bayeux.addWebsocketExtension(deflate);

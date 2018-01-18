@@ -68,7 +68,7 @@ class HttpServer {
             type: message.type,
             content: message.content
         });
-        
+
         if (typeof this.channelControl.cacheTotalNotify[message.channel] == 'undefined') {
             this.channelControl.cacheTotalNotify[message.channel] = 0;
         }
@@ -124,6 +124,7 @@ class HttpServer {
             });
 
             request.on('end', function () {
+                let time = Date.now();
                 self.body = body;
                 if (self.isInternal(path)) {
                     self.internalProcess(path);
